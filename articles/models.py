@@ -11,9 +11,11 @@ class Article(models.Model):
                                  verbose_name='Категория', related_name='articles')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создано')
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
+    readers = models.ManyToManyField(User, through="UserArticleRelation",
+                                     related_name='relationarticles')
 
     def __str__(self):
-        return self.title
+        return self.title[:50] + '...'
 
     class Meta:
         verbose_name = 'Статья'
@@ -29,3 +31,19 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
+
+
+class UserArticleRelation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь',
+                             related_name='relations')
+    article = models.ForeignKey('Article', on_delete=models.CASCADE, verbose_name='Статья',
+                                related_name='relations')
+    like = models.BooleanField(default=False, verbose_name='Лайк')
+    comment = models.CharField(max_length=250, blank=True, null=True, verbose_name='Комментарий')
+
+    def __str__(self):
+        return f'{self.user} - {self.article}'
+
+    class Meta:
+        verbose_name = 'Взаимодействие'
+        verbose_name_plural = 'Взаимодействия'
