@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from articles.models import Article, UserArticleRelation
@@ -30,3 +31,15 @@ class UserArticleRelationSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserArticleRelation
         fields = ('article', 'like', 'comment')
+
+
+class UserSerializer(serializers.ModelSerializer):
+    articles = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ('id', "username", "first_name", "last_name",
+                  "articles")
+
+    def get_articles(self, instance):
+        return Article.objects.filter(author=instance.id).values()
