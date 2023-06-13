@@ -3,13 +3,14 @@ from django.db.models import Count, Case, When
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins
 from rest_framework.filters import OrderingFilter
+from rest_framework.generics import ListCreateAPIView, DestroyAPIView
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from articles.models import Article, UserArticleRelation
-from articles.permissions import IsAuthorOrReadOnly
-from articles.serializers import ArticleSerializer, UserArticleRelationSerializer, UserSerializer
+from articles.models import Article, UserArticleRelation, Comment
+from articles.permissions import IsAuthorOrReadOnly, IsAuthorOrOwner
+from articles.serializers import ArticleSerializer, UserArticleRelationSerializer, UserSerializer, CommentSerializer
 
 
 class ArticleViewSet(ModelViewSet):
@@ -41,7 +42,28 @@ class UserArticleRelationView(UpdateModelMixin, GenericViewSet):
 
 
 class UserViewSet(mixins.RetrieveModelMixin,
+                  mixins.ListModelMixin,
                   GenericViewSet):
-    queryset = User.objects.all()
+    queryset = User.objects.all().prefetch_related('articles')
     permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
+
+
+class CommentListCreateView(ListCreateAPIView):
+    serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Comment.objects.filter(article=self.kwargs['article_id'])
+
+    def perform_create(self, serializer):
+        # serializer.validated_data['user'] = self.request.user
+        # serializer.validated_data['article'] = Article.objects.get(pk=self.kwargs['article_id'])
+        serializer.save(user=self.request.user,
+                        article=Article.objects.get(pk=self.kwargs['article_id']))
+
+
+class CommentDeleteView(DestroyAPIView):
+    queryset = Comment.objects.all()
+    permission_classes = [IsAuthorOrOwner]
+

@@ -22,6 +22,19 @@ class Article(models.Model):
         verbose_name_plural = 'Статьи'
 
 
+class Comment(models.Model):
+    text = models.TextField(max_length=350, verbose_name='Текст')
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             related_name='comments', verbose_name='Пользователь')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE,
+                                related_name='comments', verbose_name='Статья')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Отправлено')
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+
+
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name='Название')
 
@@ -39,7 +52,7 @@ class UserArticleRelation(models.Model):
     article = models.ForeignKey('Article', on_delete=models.CASCADE, verbose_name='Статья',
                                 related_name='relations')
     like = models.BooleanField(default=False, verbose_name='Лайк')
-    comment = models.CharField(max_length=250, blank=True, null=True, verbose_name='Комментарий')
+    in_bookmarks = models.BooleanField(default=False, verbose_name='В закладки')
 
     def __str__(self):
         return f'{self.user} - {self.article}'

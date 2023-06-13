@@ -1,6 +1,8 @@
+from django.urls import path
 from rest_framework import routers
 
-from articles.views import ArticleViewSet, UserArticleRelationView, UserViewSet
+from articles.views import ArticleViewSet, UserArticleRelationView, UserViewSet,\
+    CommentListCreateView, CommentDeleteView
 
 router = routers.DefaultRouter()
 router.register(r'articles', ArticleViewSet)
@@ -8,3 +10,8 @@ router.register(r'articlerelation', UserArticleRelationView)
 router.register(r'users', UserViewSet)
 
 urlpatterns = router.urls
+
+urlpatterns += [
+    path('articles/<int:article_id>/comments/', CommentListCreateView.as_view()),
+    path('comments/<int:pk>/delete', CommentDeleteView.as_view()),
+]
