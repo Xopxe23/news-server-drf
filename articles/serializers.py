@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from articles.models import Article, UserArticleRelation, Comment
+from articles.models import Article, Comment, UserArticleRelation
 
 
 class CommentSerializer(serializers.ModelSerializer):

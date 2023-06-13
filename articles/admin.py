@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from articles.models import Article, Category, UserArticleRelation, Comment
+from articles.models import Article, Category, Comment, UserArticleRelation
 
 
 @admin.register(Article)
@@ -27,5 +27,5 @@ class UserArticleRelationAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'article', 'text')
     list_display_links = ('id', 'user', 'article')
-    list_filter = ('user', 'article')
+    list_filter = ('user', )
     fields = (('user', 'article'), 'text')

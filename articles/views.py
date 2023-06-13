@@ -1,16 +1,18 @@
 from django.contrib.auth.models import User
-from django.db.models import Count, Case, When
+from django.db.models import Case, Count, When
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins
 from rest_framework.filters import OrderingFilter
-from rest_framework.generics import ListCreateAPIView, DestroyAPIView
+from rest_framework.generics import DestroyAPIView, ListCreateAPIView
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
-from articles.models import Article, UserArticleRelation, Comment
-from articles.permissions import IsAuthorOrReadOnly, IsAuthorOrOwner
-from articles.serializers import ArticleSerializer, UserArticleRelationSerializer, UserSerializer, CommentSerializer
+from articles.models import Article, Comment, UserArticleRelation
+from articles.permissions import IsAuthorOrOwner, IsAuthorOrReadOnly
+from articles.serializers import (ArticleSerializer, CommentSerializer,
+                                  UserArticleRelationSerializer,
+                                  UserSerializer)
 
 
 class ArticleViewSet(ModelViewSet):
@@ -66,4 +68,3 @@ class CommentListCreateView(ListCreateAPIView):
 class CommentDeleteView(DestroyAPIView):
     queryset = Comment.objects.all()
     permission_classes = [IsAuthorOrOwner]
-

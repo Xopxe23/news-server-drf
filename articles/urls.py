@@ -1,8 +1,9 @@
 from django.urls import path
 from rest_framework import routers
 
-from articles.views import ArticleViewSet, UserArticleRelationView, UserViewSet,\
-    CommentListCreateView, CommentDeleteView
+from articles.views import (ArticleViewSet, CommentDeleteView,
+                            CommentListCreateView, UserArticleRelationView,
+                            UserViewSet)
 
 router = routers.DefaultRouter()
 router.register(r'articles', ArticleViewSet)

@@ -15,7 +15,7 @@ class Article(models.Model):
                                      related_name='relationarticles')
 
     def __str__(self):
-        return self.title[:50] + '...'
+        return f'{self.title[:30]}...'
 
     class Meta:
         verbose_name = 'Статья'
@@ -29,6 +29,9 @@ class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE,
                                 related_name='comments', verbose_name='Статья')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Отправлено')
+
+    def __str__(self):
+        return f'{self.user} - {self.text[:30]}...'
 
     class Meta:
         verbose_name = 'Комментарий'
