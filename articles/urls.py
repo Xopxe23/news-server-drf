@@ -13,6 +13,6 @@ router.register(r'users', UserViewSet)
 urlpatterns = router.urls
 
 urlpatterns += [
-    path('articles/<int:article_id>/comments/', CommentListCreateView.as_view()),
-    path('comments/<int:pk>/delete', CommentDeleteView.as_view()),
+    path('articles/<int:article_id>/comments/', CommentListCreateView.as_view(), name='comment-list'),
+    path('comments/<int:pk>/delete', CommentDeleteView.as_view(), name='comment-delete'),
 ]
