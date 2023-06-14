@@ -26,7 +26,7 @@ class UserArticleRelationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserArticleRelation
-        fields = ('article', 'like', 'comment')
+        fields = ('article', 'like', 'in_bookmarks')
 
 
 class UserSerializer(serializers.ModelSerializer):
