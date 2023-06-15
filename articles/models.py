@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from articles.tasks import sent_comment
+
 
 class Article(models.Model):
     title = models.CharField(max_length=255, verbose_name='Заголовок')
@@ -32,6 +34,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.user} - {self.text[:30]}...'
+
+    def save(self, *args, save_model=True, **kwargs):
+        super().save(*args, **kwargs)
+        if save_model:
+            sent_comment.delay(self.id)
 
     class Meta:
         verbose_name = 'Комментарий'
