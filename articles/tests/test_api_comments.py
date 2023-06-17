@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 
-from articles.models import Category, Article, Comment
+from articles.models import Article, Category, Comment
 from articles.serializers import CommentSerializer
 
 

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
-from articles.models import Category, Article, UserArticleRelation
+from articles.models import Article, Category, UserArticleRelation
 
 
 class ArticleSerializerTestCase(TestCase):

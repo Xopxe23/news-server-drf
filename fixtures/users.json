@@ -1,0 +1,55 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$1ql2mBFtWUPuYexy2O5mhO$J+bZr9yH2ejMm3/9jMDRqG7x4c2dkN+3e9+TeS7aPmo=",
+    "last_login": "2023-06-13T07:09:10.775Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "Админ",
+    "last_name": "Админов",
+    "email": "admin@admin.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-06-09T12:37:52Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$QLEvwID55YpLdEPNNDMqgc$HVaqEhGmVgMgFf/h3j0RHdNORG6nF9xas4XkHPCKjVE=",
+    "last_login": "2023-06-13T08:58:22Z",
+    "is_superuser": false,
+    "username": "xopxe23",
+    "first_name": "Георгий",
+    "last_name": "Дудаев",
+    "email": "georgeduday@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-06-10T14:09:23Z",
+    "groups": [],
+    "user_permissions": [
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      37,
+      38,
+      39,
+      40,
+      33,
+      34,
+      35,
+      36
+    ]
+  }
+}
+]

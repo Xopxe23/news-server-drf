@@ -1,12 +1,12 @@
 import json
 
 from django.contrib.auth.models import User
-from django.db.models import Count, Case, When
+from django.db.models import Case, Count, When
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 
-from articles.models import Category, Article
+from articles.models import Article, Category
 from articles.serializers import ArticleSerializer
 
 

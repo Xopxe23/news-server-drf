@@ -8,8 +8,7 @@ def sent_comment(comment_id):
     time.sleep(5)
     from articles.models import Comment
     comment = Comment.objects.filter(id=comment_id).first()
-    text = replace_bad_words(comment.text)
-    comment.text = text
+    comment.text = replace_bad_words(comment.text)
     comment.save(save_model=False)
 
 
